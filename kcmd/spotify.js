@@ -3,18 +3,12 @@ const client = new discord.Client();
 module.exports = {
 	name: "spotify",
 	async run (message, args, client) {
-		console.log("111");
+		try {
 		let user = message.mentions.users.first() || message.author;
 
 	let activity = user.presence.activities.find((e) => e.name === 'Spotify');
 
 	console.log(activity);
-	const lolbus = new discord.MessageEmbed()
-		.setColor('ff0000')
-		.setTitle(':x: Unable to find user Spotify activity')
-	if(activity.type === null) { return message.channel.send(lolbus) };
-	if(activity.name === null) { return message,channel.send(lolbus) };
-	if(activity.assets === null) { return message.channel.send(lolbus) };
 
 	if (activity !== null && activity.type === 'LISTENING' && activity.name === 'Spotify' && activity.assets !== null) {
 
@@ -39,7 +33,13 @@ module.exports = {
 		} else {
 
 			message.channel.send('This user isnt listening to the Spotify at the moment.');
-
+			}
+		} catch (error) { 
+                const lolerror = new discord.MessageEmbed()
+			                        .setColor('ff0000')
+			                        .setTitle(':x: Unable to find user Spotify activity')
+			console.log(error); 
+			message.channel.send(lolerror); 
 		}
 	}
 };
