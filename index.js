@@ -1,14 +1,22 @@
+//-----------------------------------\\
 const fs = require('fs');
 const discord = require("discord.js");
 const client = new discord.Client();
 const config = require('./cfg.json');
+//-----------------------------------\\
 
+//-----------------------------------\\
 client.commands = new discord.Collection();
 const commandFiles = fs.readdirSync('./kcmd').filter(file => file.endsWith('.js'));
 client.once('ready', () => {
-	client.user.setActivity(`null`,
-        { type: "PLAYING",
-})
+	client.user.setPresence({
+		status: 'online',
+		activity: {
+			name: 'v4',
+			type: 'STREAMING',
+			url: 'https://www.twitch.tv/wylitch'
+		}
+});
 	console.log(`AvatarURL: ${client.user.displayAvatarURL({ size: 4096, dynamic: true, format: "png"})}`);
 	console.log(`Name: ${client.user.username}`);
 });
